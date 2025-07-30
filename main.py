@@ -1,4 +1,4 @@
-if __name__ == "main":
+if __name__ == "__main__":
     from src.models.train_model import training
     from src.utils.metrics import results
 
