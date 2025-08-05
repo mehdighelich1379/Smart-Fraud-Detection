@@ -16,7 +16,7 @@ def preprocess_data(data_path, base_model):
     X = data.drop('isFraud', axis=1)
     Y = data['isFraud']
 
-    # فقط برای تشخیص نوع ستون‌ها
+
     temp_X = feature_engineering(X)
     numerical_columns = [col for col in temp_X.columns if temp_X[col].dtype in ['int64', 'float64']]
     categorical_columns = [col for col in temp_X.columns if temp_X[col].dtype == 'O']
