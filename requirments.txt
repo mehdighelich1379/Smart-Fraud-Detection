@@ -4,5 +4,5 @@ scikit-learn
 catboost
 matplotlib
 seaborn
-joblib
 streamlit
+
