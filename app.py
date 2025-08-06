@@ -14,10 +14,10 @@ def set_background(image_file):
         data = f.read()
         encoded = base64.b64encode(data).decode()
 
-    # Define and inject custom CSS styles
+    # Custom CSS for styling
     css = f"""
     <style>
-    /* Make the entire app background image with dark overlay */
+    /* App background and positioning */
     .stApp {{
         margin-top: -40px;
         padding-top: 0px;
@@ -28,26 +28,26 @@ def set_background(image_file):
         background-repeat: no-repeat;
     }}
 
-    /* Hide the default Streamlit top header (white space) */
+    /* Hide default Streamlit header */
     header {{
         visibility: hidden;
         height: 0px;
     }}
 
-    /* Set text colors and weight */
+    /* Text color and weight */
     h1, h2, h3, h4, h5, h6, p, label, span {{
         color: white !important;
         font-weight: 600 !important;
     }}
 
-    /* Brighten markdown content (e.g., feature contributions list) */
+    /* Brighten markdown content */
     .stMarkdown, .stMarkdown p, .stMarkdown ul li, .stMarkdown span {{
         color: #f1f1f1 !important;
         font-weight: 600 !important;
         font-size: 16px !important;
     }}
 
-    /* Style input fields (text, number, select) */
+    /* Style input fields */
     .stSelectbox div[data-baseweb="select"],
     .stTextInput input,
     .stNumberInput input {{
@@ -56,9 +56,14 @@ def set_background(image_file):
         border-radius: 8px;
         padding: 6px;
     }}
+
+    /* Make only the 'Predict Fraud' button text black */
+    button:has(span:contains("Predict Fraud")) span {{
+        color: black !important;
+        font-weight: 600 !important;
+    }}
     </style>
     """
-    # Apply the styles to the Streamlit app
     st.markdown(css, unsafe_allow_html=True)
 
 
@@ -143,6 +148,7 @@ if st.button("🧠 Predict Fraud"):
 # -------------- Footer --------------
 st.markdown("---")
 st.markdown("Made with ❤️ using Streamlit and CatBoost")
+
 
 
 
