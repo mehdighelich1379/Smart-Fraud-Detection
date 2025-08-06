@@ -3,10 +3,10 @@ Detecting fraudulent financial transactions using feature engineering, LightGBM,
 
 ---
 
-## 🚀 Live Demo
+## 🔗 Live Demo
 
-🖥️ Try the app here:  
-🔗 [https://smart-fraud-detection-mehdighelich.streamlit.app/](https://smart-fraud-detection-mehdighelich.streamlit.app/)
+You can try the app live here:  
+🌐 [Click to open Smart Fraud Detection App](https://smart-fraud-detection-mehdighelich.streamlit.app/)
 
 ---
 
@@ -129,5 +129,6 @@ Web Interface: Streamlit
 
 📝 Final Thoughts
 This pipeline demonstrates how a structured, iterative approach — especially domain-informed features — can drastically improve fraud detection performance even with imbalanced data.
+
 
 The setup is modular, production-ready, and can be adapted for other anomaly or outlier detection use cases as well.
