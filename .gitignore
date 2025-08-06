@@ -1,0 +1,5 @@
+*.csv
+mlruns/
+catboost_info/
+__pycache__/
+
