@@ -15,7 +15,7 @@ def set_background(image_file):
 
     css = f"""
     <style>
-    /* Full-page dark overlay with background image */
+    /* App background */
     .stApp {{
         margin-top: -40px;
         padding-top: 0px;
@@ -26,26 +26,26 @@ def set_background(image_file):
         background-repeat: no-repeat;
     }}
 
-    /* Hide Streamlit default header */
+    /* Hide Streamlit header */
     header {{
         visibility: hidden;
         height: 0px;
     }}
 
-    /* General text and label styling */
+    /* General text styling */
     h1, h2, h3, h4, h5, h6, p, label, span {{
         color: white !important;
         font-weight: 600 !important;
     }}
 
-    /* Brighten markdown content */
+    /* Brighten markdown */
     .stMarkdown, .stMarkdown p, .stMarkdown ul li, .stMarkdown span {{
         color: #f1f1f1 !important;
         font-weight: 600 !important;
         font-size: 16px !important;
     }}
 
-    /* Style input fields */
+    /* Input fields */
     .stSelectbox div[data-baseweb="select"],
     .stTextInput input,
     .stNumberInput input {{
@@ -55,31 +55,32 @@ def set_background(image_file):
         padding: 6px;
     }}
 
-    /* Style ALL buttons - override to red */
+    /* Default button: red with white text */
     button {{
-        background-color: #d32f2f !important;  /* Red background */
-        color: white !important;               /* White text */
+        background-color: #d32f2f !important;
+        color: white !important;
         border: none !important;
         border-radius: 8px !important;
         font-weight: 600 !important;
         transition: background-color 0.2s ease;
     }}
 
-    /* Keep button red when clicked (active) */
+    /* On click: make button green */
     button:active {{
-        background-color: #b71c1c !important;
+        background-color: #2e7d32 !important;  /* Green */
         color: white !important;
     }}
 
-    /* Keep button red when focused (keyboard nav) */
+    /* Keep it green if focused (e.g. clicked via keyboard) */
     button:focus {{
-        background-color: #d32f2f !important;
+        background-color: #2e7d32 !important;
         color: white !important;
         box-shadow: none !important;
     }}
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
+
 
 
 
@@ -164,6 +165,7 @@ if st.button("🧠 Predict Fraud"):
 # -------------- Footer --------------
 st.markdown("---")
 st.markdown("Made with ❤️ using Streamlit and CatBoost")
+
 
 
 
