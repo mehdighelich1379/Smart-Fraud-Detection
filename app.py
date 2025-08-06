@@ -25,6 +25,14 @@ def set_background(image_file):
         font-weight: 600 !important;
     }}
 
+    /* Make markdown content brighter */
+    .stMarkdown, .stMarkdown p, .stMarkdown ul li, .stMarkdown span {{
+        color: #f1f1f1 !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+    }}
+
+    /* Input fields styling */
     .stSelectbox div[data-baseweb="select"],
     .stTextInput input,
     .stNumberInput input {{
@@ -36,6 +44,7 @@ def set_background(image_file):
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
+
 
 # -------------- Load Model --------------
 pipeline = joblib.load("src/models/fraud_catboost_pipeline.pkl")
@@ -116,6 +125,8 @@ if st.button("🧠 Predict Fraud"):
 # -------------- Footer --------------
 st.markdown("---")
 st.markdown("Made with ❤️ using Streamlit and CatBoost")
+
+
 
 
 
