@@ -1,6 +1,7 @@
 💳 Smart Fraud Detection Pipeline
 Detecting fraudulent financial transactions using feature engineering, LightGBM, CatBoost, SMOTE, and evaluation visualizations.
 
+```bash
 📁 Project Structure
 bash
 Copy
@@ -104,5 +105,6 @@ Tracking: MLflow
 📝 Final Thoughts
 This pipeline demonstrates how a structured, iterative approach—especially domain-informed features—can drastically improve fraud detection performance even with imbalanced data.
 This setup can be adapted for other anomaly detection tasks as well.
+
 
 
