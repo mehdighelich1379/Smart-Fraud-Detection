@@ -1,104 +1,108 @@
-# Fraud Detection Pipeline  
-Detecting fraudulent financial transactions using advanced feature engineering and LightGBM.  
+💳 Smart Fraud Detection Pipeline
+Detecting fraudulent financial transactions using feature engineering, LightGBM, CatBoost, SMOTE, and evaluation visualizations.
 
-## 📁 Project Structure
-
-```bash
+📁 Project Structure
+bash
+Copy
+Edit
 fraud-detection/
-├── notebooks/
-│   └── build_model.ipynb       ← Step-by-step experimentation
+├── data/                             ← (optional) zipped dataset or ignored raw data
+├── images/                           ← Images used in reporting or Streamlit
+├── mlruns/                           ← MLFlow tracking (excluded from Git)
+├── notebook/
+│   ├── EDA.ipynb                     ← Exploratory Data Analysis
+│   ├── build_model.ipynb            ← Step-by-step experimentation
+│   └── sampled_5m_with_fraud.csv    ← Sample dataset (if not ignored)
 ├── src/
 │   ├── data/
-│   │   └── preprocess.py       ← Feature engineering + preprocessing pipeline
+│   │   └── preprocessing.py         ← Preprocessing + feature engineering
 │   ├── models/
-│   │   └── train_model.py      ← Model training script with LightGBM
+│   │   ├── train_model.py           ← Model training script
+│   │   └── *.pkl                    ← Saved models (CatBoost / LGBM)
 │   ├── utils/
-│   │   └── metrics.py          ← Evaluation: metrics, confusion matrix, ROC
+│   │   └── metrics.py               ← Evaluation metrics and plots
 │   └── init.py
-├── app/
-│   └── streamlit_app.py        ← (Optional) Streamlit dashboard
-├── evaluate.py                 ← Script for model performance visualization
-├── main.py                     ← Run training + evaluation together
+├── app.py                           ← Streamlit dashboard entry point
+├── explainder_dashboard.py          ← SHAP + feature importance visualizer
+├── evaluate.py                      ← Model evaluation and reporting
+├── main.py                          ← Full training pipeline
 ├── requirements.txt
 └── README.md
+🧠 Key Highlights
+✅ End-to-End Pipeline:
+Covers everything from EDA to deployment-ready models.
 
----
+Modular and production-oriented design using src/ architecture.
 
-## 🔍 Project Description
+📊 MLFlow Tracking:
+All experiments logged under mlruns/
 
-This project builds an end-to-end pipeline for credit card fraud detection. It applies robust preprocessing, feature engineering, and a tuned LightGBM model to detect fraud with high recall and balanced precision. The process starts with Exploratory Data Analysis (EDA), followed by various modeling stages to find the most stable and generalizable solution.
+Keeps track of metrics, params, models, and artifacts.
 
----
+📈 Model Types:
+LightGBM with tuned parameters
 
-## ✅ Steps Performed
+CatBoost for additional benchmarking
 
-### 1. EDA (notebooks/EDA.ipynb)  
-- Analyzed distribution of fraud vs non-fraud samples (highly imbalanced).
-- Explored transaction types, amount distributions, and balance inconsistencies.
-- Visualized correlations and outliers.
+⚙️ Feature Engineering:
+Added domain-informed features to capture fraud behavior:
 
-### 2. Initial Model (No class weights)
-- Trained LightGBM on raw data.
-- Result: Low recall on fraud class (missed most frauds).
+errorBalanceOrig = newbalanceOrig + amount - oldbalanceOrg
 
-### 3. Model with Class Weights  
-- Applied class_weight='balanced' to improve fraud detection.
-- Result: Recall improved, but precision dropped drastically (too many false positives).
+errorBalanceDest = oldbalanceDest + amount - newbalanceDest
 
-### 4. **Using scale_pos_weight / is_unbalance in LGBM**
-- Result: Still unstable performance.
+📌 Oversampling with SMOTE:
+Used SMOTE to balance the dataset.
 
-###Smote Oversamplingng**
-- Used to synthetically balance classes.
-- Slight improvement, precision still too lowow**.
+Addressed class imbalance and improved recall.
 
-###🧠 Feature Engineering (Key Step!)!)**
-- Introduced 2 engineered features:
-  - errorBalanceOrig = newbalanceOrig + amount - oldbalanceOrg
-  - errorBalanceDest = oldbalanceDest + amount - newbalanceDest
-- These features capture inconsistencies that typically occur in fraudulent transactions.
-- After retraining the model, we achieved:
-Precision:n:** ~0.99  
-Recall:l:** ~0.99  
-F1-score:e:** ~0.99  
-Accuracy:y:** ~0.99  
-- Balanced results with strong generalization validated 5-fold Stratified Cross-Validationon**.
+🚦 Evaluation
+Achieved near-perfect performance:
 
----
+Metric	Score
+Accuracy	~0.99
+Precision	~0.99
+Recall	~0.99
+F1-Score	~0.99
 
-## 🛠️ Technologies Used
-- Python, Pandas, NumPy, Seaborn, Matplotlib
-- Scikit-learn, LightGBM
-- Joblib, Jupyter Notebook
+Validated with 5-fold Stratified Cross-Validation
 
----
+Visualized using confusion matrix and ROC AUC
 
-## 🚀 How to Run
+📊 Visual Tools
+explainder_dashboard.py for SHAP-based feature importance.
 
-1. Clone the repo:  
-   `bash
-   git clone https://github.com/mehdighelich1379/Smart-Fraud-Detection.git
-   cd fraud-detection-model
+evaluate.py generates plots for precision-recall trade-offs, etc.
 
-2. Install dependencies:
+app.py (or streamlit_app.py) for optional interactive dashboard.
 
+🚀 Getting Started
+bash
+Copy
+Edit
+# 1. Clone the repository
+git clone https://github.com/mehdighelich1379/Smart-Fraud-Detection.git
+cd Smart-Fraud-Detection
+
+# 2. Install dependencies
 pip install -r requirements.txt
 
-
-3. Train the model:
-
+# 3. Run the pipeline
 python main.py
 
-
-4. Evaluate the model (optional):
-
+# 4. Evaluate the model (optional)
 python evaluate.py
+🛠️ Tech Stack
+Languages & Tools: Python, Jupyter, VS Code
+
+ML Libraries: LightGBM, CatBoost, Scikit-learn, SMOTE
+
+Visualization: Matplotlib, Seaborn, SHAP
+
+Tracking: MLflow
+
+📝 Final Thoughts
+This pipeline demonstrates how a structured, iterative approach—especially domain-informed features—can drastically improve fraud detection performance even with imbalanced data.
+This setup can be adapted for other anomaly detection tasks as well.
 
 
-
-
----
-
-📈 Final Notes
-
-This project demonstrates how careful feature engineering and iterative evaluation (precision vs recall trade-offs) can significantly improve fraud detection systems. While data imbalance is a major challenge, domain-driven feature design often yields the best boost in model performance.
