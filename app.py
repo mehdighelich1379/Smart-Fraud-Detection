@@ -9,15 +9,13 @@ def set_background(image_file):
     import base64
     import streamlit as st
 
-    # Read and encode the background image
     with open(image_file, "rb") as f:
         data = f.read()
         encoded = base64.b64encode(data).decode()
 
-    # Custom CSS for styling
     css = f"""
     <style>
-    /* App background and positioning */
+    /* Full-page dark overlay with background image */
     .stApp {{
         margin-top: -40px;
         padding-top: 0px;
@@ -28,13 +26,13 @@ def set_background(image_file):
         background-repeat: no-repeat;
     }}
 
-    /* Hide default Streamlit header */
+    /* Hide Streamlit default header */
     header {{
         visibility: hidden;
         height: 0px;
     }}
 
-    /* Text color and weight */
+    /* General text and label styling */
     h1, h2, h3, h4, h5, h6, p, label, span {{
         color: white !important;
         font-weight: 600 !important;
@@ -57,14 +55,32 @@ def set_background(image_file):
         padding: 6px;
     }}
 
-    /* Make only the 'Predict Fraud' button text black */
-    button:has(span:contains("Predict Fraud")) span {{
-        color: black !important;
+    /* Style ALL buttons - override to red */
+    button {{
+        background-color: #d32f2f !important;  /* Red background */
+        color: white !important;               /* White text */
+        border: none !important;
+        border-radius: 8px !important;
         font-weight: 600 !important;
+        transition: background-color 0.2s ease;
+    }}
+
+    /* Keep button red when clicked (active) */
+    button:active {{
+        background-color: #b71c1c !important;
+        color: white !important;
+    }}
+
+    /* Keep button red when focused (keyboard nav) */
+    button:focus {{
+        background-color: #d32f2f !important;
+        color: white !important;
+        box-shadow: none !important;
     }}
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
+
 
 
 
@@ -148,6 +164,7 @@ if st.button("🧠 Predict Fraud"):
 # -------------- Footer --------------
 st.markdown("---")
 st.markdown("Made with ❤️ using Streamlit and CatBoost")
+
 
 
 
