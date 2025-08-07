@@ -6,7 +6,7 @@ from src.utils.metrics import results
 
 if __name__ == "__main__":
     # 1. Load data
-    df = pd.read_csv("notebook/sampled_5m_with_fraud.csv")  # 🔁 Make sure the path is correct
+    df = pd.read_csv("notebook/sampled_5m_with_fraud.csv") 
 
 
     # 2. Train model and get pipeline + splits
@@ -22,6 +22,7 @@ if __name__ == "__main__":
         X_full=X,
         Y_full=y
     )
+
 
 
 
