@@ -13,10 +13,10 @@ You can try the app live here:
 ## 📷 Demo Screenshots
 
 ### 📥 Transaction Input Form
-![Input Form](./images/demo_1.png)
+![Input Form](./images/Demo_1.png)
 
 ### 📊 Prediction Output
-![Prediction Result](./images/demo_2.png)
+![Prediction Result](./images/Demo_2.png)
 
 ---
 
@@ -132,3 +132,4 @@ This pipeline demonstrates how a structured, iterative approach — especially d
 
 
 The setup is modular, production-ready, and can be adapted for other anomaly or outlier detection use cases as well.
+
