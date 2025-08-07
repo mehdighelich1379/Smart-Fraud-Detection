@@ -1,4 +1,8 @@
-import base64 import streamlit as st import pandas as pd import joblib import numpy as np
+import base64
+import streamlit as st 
+import pandas as pd
+import joblib
+import numpy as np
 
 -------------- Background Image Setup --------------
 
@@ -174,6 +178,7 @@ except Exception as e:
 -------------- Footer --------------
 
 st.markdown("---") st.markdown("Made with \u2764\ufe0f using Streamlit and CatBoost")
+
 
 
 
