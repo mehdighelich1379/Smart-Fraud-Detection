@@ -128,7 +128,7 @@ has been intentionally excluded from this repository.
 ✅ You can still explore the trained model, interactive dashboard, and visual results to evaluate the project.
 
 If you’re a recruiter/employer and need access to the full pipeline for validation, please contact me at:
-📧 mehdighelich@example.com
+📧 ghelichmehdi1@gmail.com
 
 🛠️ Tech Stack
 Languages: Python, Jupyter Notebook
@@ -145,5 +145,6 @@ Deployment: Streamlit
 This project demonstrates how a structured, feature-driven, and iterative pipeline can achieve near-perfect performance in fraud detection — even with highly imbalanced datasets.
 
 It is adaptable to other anomaly detection tasks such as customer churn, insurance fraud, or health risk prediction.
+
 
 
