@@ -1,4 +1,3 @@
-
 import base64
 import streamlit as st
 import pandas as pd
@@ -69,59 +68,71 @@ set_background("images/fraud_image2.jpg")
 # -------------- Title --------------
 st.markdown("<h1 style='text-align: center;'>💸 Real-Time Fraud Detection App</h1>", unsafe_allow_html=True)
 
-# -------------- Generate Random Test Data --------------
-def generate_random_transaction():
-    # 30% chance of being fraudulent
-    is_fraud = np.random.rand() < 0.3
-
+# -------------- Synthetic Data Generator --------------
+def generate_synthetic_data(fraudulent: bool):
     trans_type = np.random.choice(["TRANSFER", "CASH_OUT", "PAYMENT", "DEBIT", "CASH_IN"])
     time_period = np.random.choice(["Midnight", "Morning", "Afternoon", "Night"])
 
-    if is_fraud:
-        amount = np.random.randint(5000, 10000)
-        old_org = amount
-        new_org = 0
-        old_dest = np.random.choice([0, np.random.randint(500, 2000)])
-        new_dest = old_dest
+    if fraudulent:
+        # Typical fraud transaction pattern
+        amount = np.random.uniform(5000, 20000)
+        oldbalanceOrg = amount
+        newbalanceOrig = 0.0
+        oldbalanceDest = np.random.choice([0, np.random.uniform(500, 2000)])
+        newbalanceDest = oldbalanceDest
     else:
-        amount = np.random.randint(10, 1000)
-        old_org = np.random.randint(amount + 100, amount + 3000)
-        new_org = old_org - amount
-        old_dest = np.random.randint(0, 1000)
-        new_dest = old_dest + amount
+        # Typical legitimate transaction pattern
+        amount = np.random.uniform(10, 1000)
+        oldbalanceOrg = np.random.uniform(amount + 100, amount + 5000)
+        newbalanceOrig = oldbalanceOrg - amount
+        oldbalanceDest = np.random.uniform(0, 3000)
+        newbalanceDest = oldbalanceDest + amount
 
     return {
         "type": trans_type,
-        "amount": float(amount),
-        "oldbalanceOrg": float(old_org),
-        "newbalanceOrig": float(new_org),
-        "oldbalanceDest": float(old_dest),
-        "newbalanceDest": float(new_dest),
+        "amount": round(amount, 2),
+        "oldbalanceOrg": round(oldbalanceOrg, 2),
+        "newbalanceOrig": round(newbalanceOrig, 2),
+        "oldbalanceDest": round(oldbalanceDest, 2),
+        "newbalanceDest": round(newbalanceDest, 2),
         "time_period": time_period
     }
 
-# -------------- Session State for Auto-Fill --------------
+# -------------- Session State --------------
 if "auto_data" not in st.session_state:
     st.session_state.auto_data = None
 
-# -------------- Button: Generate Random Data --------------
-if st.button("🎲 Generate Random Test Transaction"):
-    st.session_state.auto_data = generate_random_transaction()
-    st.success("✅ Sample transaction data generated!")
+# -------------- Select data type for test --------------
+fraud_type = st.selectbox("🔎 Select test data type:", ["Random (all)", "Fraudulent only", "Legitimate only"])
 
-# -------------- Transaction Form Inputs --------------
+# -------------- Button to generate test data --------------
+if st.button("🎲 Generate Test Transaction Data"):
+    if fraud_type == "Fraudulent only":
+        data = generate_synthetic_data(fraudulent=True)
+    elif fraud_type == "Legitimate only":
+        data = generate_synthetic_data(fraudulent=False)
+    else:
+        data = generate_synthetic_data(fraudulent=np.random.rand() < 0.3)
+
+    st.session_state.auto_data = data
+    st.success("✅ Synthetic transaction data generated!")
+
+# -------------- Input Form --------------
 st.markdown("### Please enter transaction details below:")
 
-# Use either random-generated or manual input
 d = st.session_state.auto_data or {}
 
-transaction_type = st.selectbox("Transaction Type",
-                                options=["TRANSFER", "CASH_OUT", "PAYMENT", "DEBIT", "CASH_IN"],
-                                index=["TRANSFER", "CASH_OUT", "PAYMENT", "DEBIT", "CASH_IN"].index(d.get("type", "TRANSFER")))
+transaction_type = st.selectbox(
+    "Transaction Type",
+    options=["TRANSFER", "CASH_OUT", "PAYMENT", "DEBIT", "CASH_IN"],
+    index=["TRANSFER", "CASH_OUT", "PAYMENT", "DEBIT", "CASH_IN"].index(d.get("type", "TRANSFER"))
+)
 
-time_period = st.selectbox("Transaction Time of Day",
-                           options=["Midnight", "Morning", "Afternoon", "Night"],
-                           index=["Midnight", "Morning", "Afternoon", "Night"].index(d.get("time_period", "Midnight")))
+time_period = st.selectbox(
+    "Transaction Time of Day",
+    options=["Midnight", "Morning", "Afternoon", "Night"],
+    index=["Midnight", "Morning", "Afternoon", "Night"].index(d.get("time_period", "Midnight"))
+)
 
 amount = st.number_input("Amount", min_value=0.0, value=d.get("amount", 0.0))
 oldbalanceOrg = st.number_input("Sender Balance Before", min_value=0.0, value=d.get("oldbalanceOrg", 0.0))
@@ -129,7 +140,7 @@ newbalanceOrig = st.number_input("Sender Balance After", min_value=0.0, value=d.
 oldbalanceDest = st.number_input("Receiver Balance Before", min_value=0.0, value=d.get("oldbalanceDest", 0.0))
 newbalanceDest = st.number_input("Receiver Balance After", min_value=0.0, value=d.get("newbalanceDest", 0.0))
 
-# -------------- Prepare Input --------------
+# -------------- Prepare Input Data --------------
 input_data = pd.DataFrame({
     "type": [transaction_type],
     "amount": [amount],
@@ -140,7 +151,7 @@ input_data = pd.DataFrame({
     "time_period": [time_period]
 })
 
-# -------------- Predict Button --------------
+# -------------- Prediction --------------
 if st.button("🧠 Predict Fraud"):
     prob = pipeline.predict_proba(input_data)[0][1]
     prediction = pipeline.predict(input_data)[0]
@@ -163,7 +174,7 @@ if st.button("🧠 Predict Fraud"):
     else:
         st.success("🟢 **Low Risk:** No signs of fraud detected.")
 
-    # Explain Prediction
+    # Explanation (optional)
     st.markdown("### 🧠 Why this prediction?")
     try:
         fe_data = pipeline.named_steps['feature_engineer'].transform(input_data)
@@ -187,13 +198,3 @@ if st.button("🧠 Predict Fraud"):
 # -------------- Footer --------------
 st.markdown("---")
 st.markdown("Made with ❤️ using Streamlit and CatBoost")
-
-
-
-
-
-
-
-
-
-
