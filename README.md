@@ -1,4 +1,11 @@
 # 💳 Smart Fraud Detection Pipeline  
+
+
+📊 **Dataset Info**  
+Model trained on a real-world dataset with **~6 million legitimate transactions** and **~9,000 fraudulent cases** — showcasing severe class imbalance (~0.15% fraud rate).
+
+
+
 Detecting fraudulent financial transactions using feature engineering, LightGBM, CatBoost, SMOTE, and evaluation visualizations.
 
 ---
@@ -21,7 +28,6 @@ You can try the app live here:
 ---
 
 ## 📁 Project Structure
-
 ```bash
 fraud-detection/
 ├── data/                             ← (optional) zipped dataset or ignored raw data
@@ -42,24 +48,20 @@ fraud-detection/
 │   └── init.py
 ├── app.py                           ← Streamlit dashboard entry point
 ├── explainder_dashboard.py          ← SHAP + feature importance visualizer
-├── evaluate.py                      ← Model evaluation and reporting
 ├── main.py                          ← Full training pipeline
 ├── requirements.txt
 └── README.md
-🧠 Key Highlights
 ✅ End-to-End Pipeline:
-Covers everything from EDA to deployment-ready models
-
-Modular and production-oriented design using src/ architecture
-
+Covers everything from EDA to a deployment-ready model — modular and production-oriented structure using src/ architecture.
 
 📈 Model Types:
+
 LightGBM with tuned parameters
 
 CatBoost for additional benchmarking
 
 ⚙️ Feature Engineering:
-Created custom features to capture transaction behavior and anomalies:
+Created domain-informed features to capture fraud behavior and anomalies:
 
 python
 Copy
@@ -72,37 +74,31 @@ is_orig_empty_after = (newbalanceOrig == 0).astype(int)
 is_dest_empty_before = (oldbalanceDest == 0).astype(int)
 large_amount_flag = (amount > amount.quantile(0.99)).astype(int)
 ratio_amount_balance = amount / (oldbalanceOrg + 1)
-These features help the model capture unusual behaviors like:
+These features help the model capture patterns like:
 
-Sender/receiver having empty balances
+Unusual balance changes
 
-Large transaction amounts
+Empty sender/receiver accounts
 
-Mismatches between expected and actual balances
+Abnormal transaction volumes
 
-Also:
+🚦 Evaluation Results:
 
-The step column is dropped if present
-
-The time_period feature (e.g. "Morning", "Afternoon") is required
-
-🚦 Evaluation
 Metric	Score
 Accuracy	~0.99
 Precision	~0.99
 Recall	~0.99
 F1-Score	~0.99
 
-Validated using 5-fold Stratified Cross-Validation
+Validated with 5-fold Stratified Cross-Validation and visualized using ROC AUC, confusion matrix, and precision-recall curves.
 
-Visualized using confusion matrix, ROC AUC, and precision-recall curves
+📊 Visual Tools:
 
-📊 Visual Tools
 explainder_dashboard.py: SHAP-based feature importance visualizer
 
-evaluate.py: Generates evaluation and performance plots
+evaluate.py: Generates ROC, PR, and confusion matrix plots
 
-app.py: Real-time prediction dashboard with Streamlit
+app.py: Streamlit dashboard for real-time prediction
 
 🚀 Getting Started
 bash
@@ -115,21 +111,39 @@ cd Smart-Fraud-Detection
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run the full pipeline
-python main.py
+# 3. Run the Streamlit dashboard
+streamlit run app.py
+❗ Source Code Restrictions
+⚠️ Notice
+To prevent misuse and unauthorized copying, the core source code related to:
 
-# 4. (Optional) Evaluate the model
-python evaluate.py
+Data preprocessing (src/data/preprocessing.py)
+
+Model training (src/models/train_model.py)
+
+Evaluation functions (src/utils/metrics.py)
+
+has been intentionally excluded from this repository.
+
+✅ You can still explore the trained model, interactive dashboard, and visual results to evaluate the project.
+
+If you’re a recruiter/employer and need access to the full pipeline for validation, please contact me at:
+📧 mehdighelich@example.com
+
 🛠️ Tech Stack
-Languages & Tools: Python, Jupyter, VS Code
+Languages: Python, Jupyter Notebook
+
 ML Libraries: LightGBM, CatBoost, Scikit-learn, SMOTE
+
 Visualization: Matplotlib, Seaborn, SHAP
-Experiment Tracking: MLflow
-Web Interface: Streamlit
+
+Experiment Tracking: MLFlow
+
+Deployment: Streamlit
 
 📝 Final Thoughts
-This pipeline demonstrates how a structured, iterative approach — especially domain-informed features — can drastically improve fraud detection performance even with imbalanced data.
+This project demonstrates how a structured, feature-driven, and iterative pipeline can achieve near-perfect performance in fraud detection — even with highly imbalanced datasets.
 
+It is adaptable to other anomaly detection tasks such as customer churn, insurance fraud, or health risk prediction.
 
-The setup is modular, production-ready, and can be adapted for other anomaly or outlier detection use cases as well.
 
