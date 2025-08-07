@@ -4,7 +4,7 @@ import numpy as np
 import random
 
 # Load trained model (trained on 7 million real transactions)
-model = joblib.load("model.joblib")  # Make sure to have this file in the same folder or provide full path
+pipeline = joblib.load("src/models/fraud_catboost_pipeline.pkl")
 
 # Set Streamlit page config
 st.set_page_config(page_title="💳 Smart Fraud Detector", layout="centered")
@@ -111,3 +111,4 @@ if submitted:
 # Footer
 st.markdown("---")
 st.caption("Made with ❤️ using Streamlit and CatBoost")
+
