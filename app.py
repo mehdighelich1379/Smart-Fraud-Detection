@@ -102,18 +102,11 @@ def generate_synthetic_data(fraudulent: bool):
 if "auto_data" not in st.session_state:
     st.session_state.auto_data = None
 
-# -------------- Select data type for test --------------
-fraud_type = st.selectbox("🔎 Select test data type:", ["Random (all)", "Fraudulent only", "Legitimate only"])
+# -------------- Random Data Checkbox and Button --------------
+generate_random_data = st.checkbox("🎲 Generate Random Synthetic Transaction Data")
 
-# -------------- Button to generate test data --------------
-if st.button("🎲 Generate Test Transaction Data"):
-    if fraud_type == "Fraudulent only":
-        data = generate_synthetic_data(fraudulent=True)
-    elif fraud_type == "Legitimate only":
-        data = generate_synthetic_data(fraudulent=False)
-    else:
-        data = generate_synthetic_data(fraudulent=np.random.rand() < 0.3)
-
+if generate_random_data:
+    data = generate_synthetic_data(fraudulent=np.random.rand() < 0.3)
     st.session_state.auto_data = data
     st.success("✅ Synthetic transaction data generated!")
 
