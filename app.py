@@ -74,14 +74,12 @@ def generate_synthetic_data(fraudulent: bool):
     time_period = np.random.choice(["Midnight", "Morning", "Afternoon", "Night"])
 
     if fraudulent:
-        # Typical fraud transaction pattern
         amount = np.random.uniform(5000, 20000)
         oldbalanceOrg = amount
         newbalanceOrig = 0.0
         oldbalanceDest = np.random.choice([0, np.random.uniform(500, 2000)])
         newbalanceDest = oldbalanceDest
     else:
-        # Typical legitimate transaction pattern
         amount = np.random.uniform(10, 1000)
         oldbalanceOrg = np.random.uniform(amount + 100, amount + 5000)
         newbalanceOrig = oldbalanceOrg - amount
@@ -102,13 +100,12 @@ def generate_synthetic_data(fraudulent: bool):
 if "auto_data" not in st.session_state:
     st.session_state.auto_data = None
 
-# -------------- Random Data Checkbox and Button --------------
-generate_random_data = st.checkbox("🎲 Generate Random Synthetic Transaction Data")
-
-if generate_random_data:
+# -------------- Random Data Button --------------
+st.markdown("#### Need a quick test?")
+if st.button("👉 Click here to auto-fill with random synthetic data"):
     data = generate_synthetic_data(fraudulent=np.random.rand() < 0.3)
     st.session_state.auto_data = data
-    st.success("✅ Synthetic transaction data generated!")
+    st.success("✅ Transaction fields filled with synthetic data!")
 
 # -------------- Input Form --------------
 st.markdown("### Please enter transaction details below:")
@@ -167,7 +164,7 @@ if st.button("🧠 Predict Fraud"):
     else:
         st.success("🟢 **Low Risk:** No signs of fraud detected.")
 
-    # Explanation (optional)
+    # Explanation
     st.markdown("### 🧠 Why this prediction?")
     try:
         fe_data = pipeline.named_steps['feature_engineer'].transform(input_data)
