@@ -51,6 +51,17 @@ fraud-detection/
 ├── main.py                          ← Full training pipeline
 ├── requirements.txt
 └── README.md
+
+---
+
+## 🧭 Architecture Overview
+
+This flowchart shows how different components of the system (user interface, data preprocessing, ML model, and output) are connected in the pipeline.
+
+![Fraud Detection Diagram](./images/Diagram.png)
+
+---
+
 ✅ End-to-End Pipeline:
 Covers everything from EDA to a deployment-ready model — modular and production-oriented structure using src/ architecture.
 
@@ -145,6 +156,7 @@ Deployment: Streamlit
 This project demonstrates how a structured, feature-driven, and iterative pipeline can achieve near-perfect performance in fraud detection — even with highly imbalanced datasets.
 
 It is adaptable to other anomaly detection tasks such as customer churn, insurance fraud, or health risk prediction.
+
 
 
 
