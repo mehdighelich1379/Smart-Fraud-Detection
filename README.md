@@ -58,7 +58,7 @@ fraud-detection/
 
 This flowchart shows how different components of the system (user interface, data preprocessing, ML model, and output) are connected in the pipeline.
 
-![Fraud Detection Diagram](./images/Diagram.png)
+![Fraud Detection Diagram](images/Diagram.png)
 
 ---
 
@@ -156,6 +156,7 @@ Deployment: Streamlit
 This project demonstrates how a structured, feature-driven, and iterative pipeline can achieve near-perfect performance in fraud detection — even with highly imbalanced datasets.
 
 It is adaptable to other anomaly detection tasks such as customer churn, insurance fraud, or health risk prediction.
+
 
 
 
