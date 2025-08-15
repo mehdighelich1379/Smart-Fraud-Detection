@@ -1,6 +1,5 @@
 # 💳 Smart Fraud Detection Pipeline  
 
-
 📊 ***Dataset Info***
 Model trained on a real-world dataset with **~6 million legitimate transactions** and **~9,000 fraudulent cases** — showcasing severe class imbalance (~0.15% fraud rate).
 
@@ -157,6 +156,7 @@ Deployment: Streamlit
 This project demonstrates how a structured, feature-driven, and iterative pipeline can achieve near-perfect performance in fraud detection — even with highly imbalanced datasets.
 
 It is adaptable to other anomaly detection tasks such as customer churn, insurance fraud, or health risk prediction.
+
 
 
 
