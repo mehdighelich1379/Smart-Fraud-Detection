@@ -59,7 +59,7 @@ def set_background(image_file):
     st.markdown(css, unsafe_allow_html=True)
 
 # -------------- Load Model --------------
-pipeline = joblib.load("src/models/fraud_LGBMClassifier_pipeline.pkl")
+pipeline = joblib.load("src/models/fraud_catboost_pipeline.pkl")
 
 # -------------- Page Config --------------
 st.set_page_config(page_title="Fraud Detection App", layout="centered")
@@ -187,6 +187,7 @@ if st.button("🧠 Predict Fraud"):
 
 # -------------- Footer --------------
 st.markdown("---")
-st.markdown("Made with ❤️ using Streamlit and LGBMClassifier")
+st.markdown("Made with ❤️ using Streamlit and Catboost")
+
 
 
