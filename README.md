@@ -49,7 +49,7 @@ fraud-detection/
 ├── main.py                          ← Full training pipeline
 ├── requirements.txt
 └── README.md
-
+```
 ---
 
 ## 🧭 Architecture Overview
@@ -155,6 +155,7 @@ Deployment: Streamlit
 This project demonstrates how a structured, feature-driven, and iterative pipeline can achieve near-perfect performance in fraud detection — even with highly imbalanced datasets.
 
 It is adaptable to other anomaly detection tasks such as customer churn, insurance fraud, or health risk prediction.
+
 
 
 
